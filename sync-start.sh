@@ -118,7 +118,7 @@ set -x
       		echo $PID >"${PID_FILE}"
       	else
       		log_failure_msg "Error starting $NAME."
-      		exit 1
+      		# exit 1
       	fi
       }
       start_script
