@@ -3,9 +3,8 @@ set -x
       ### Fill in these bits:
       DESKTOPSYNC_URL=https://nightlybuilds.alfresco.com/DesktopSync/LATEST/5.x-Distribution-Zip/AlfrescoSyncServer.zip
       POSTGRES_JDBC_URL=https://jdbc.postgresql.org/download/postgresql-9.4.1212.jre6.jar
-      ### LOCAL_ROOT=/usr/local/desktop-sync
-      LOCAL_ROOT=$HOME/desktop-sync
-      mkdir -p $LOCAL_ROOT
+      LOCAL_ROOT=/usr/local/desktop-sync
+       mkdir -p $LOCAL_ROOT
       JAR_LOCATION=$LOCAL_ROOT/sync/service-sync
       SYNC_JAR_VERSION=2.2-SNAPSHOT
       SYNC_JAR_FILE=service-sync-$SYNC_JAR_VERSION.jar
