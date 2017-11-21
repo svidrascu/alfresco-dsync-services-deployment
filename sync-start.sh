@@ -91,7 +91,7 @@ set -x
       }
 
       check_proc() {
-      	RET="$(pgrep -u $USER -f ${PGREP_STRING})"
+      	RET="$(pgrep -f ${PGREP_STRING})"
       	if [ -n "$RET" ]; then
       		return 0
       	else
@@ -103,7 +103,7 @@ set -x
 
       	check_proc
       	if [ $? -eq 0 ]; then
-      		PID="$(pgrep -u $USER -f ${PGREP_STRING})"
+      		PID="$(pgrep -f ${PGREP_STRING})"
       		log_success_msg "$NAME with pid '$PID' is already running."
       		exit 0
       	fi
@@ -113,7 +113,7 @@ set -x
 
       	check_proc
       	if [ $? -eq 0 ]; then
-      		PID="$(pgrep -u $USER -f ${PGREP_STRING})"
+      		PID="$(pgrep -f ${PGREP_STRING})"
       		log_success_msg "Started $NAME with pid $PID."
       		echo $PID >"${PID_FILE}"
       	else
