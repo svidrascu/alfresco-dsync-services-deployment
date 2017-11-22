@@ -160,6 +160,7 @@ sync:
             schedulerInitialDelay: 0
             # every hour
             schedulerPeriod: 3600
+            schedulerExpression: 0 0  ?  *
         numThreads: 5
         batchSize: 50
     # Syncer thread pool (for handling sync resolutions of client and repository changes)
