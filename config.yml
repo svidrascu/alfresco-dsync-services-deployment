@@ -61,7 +61,7 @@ sql:
                 lockRetryCount: 5
                 lockRetryWaitSeconds: 1
         driver: org.postgresql.Driver
-        url: jdbc:postgresql://@@HOST@@/syncservice-postgresql
+        url: jdbc:postgresql://@@DB_HOST@@/syncservice-postgresql
         username: alfresco
         password: admin
         pool:
@@ -128,8 +128,8 @@ server:
 
 repo:
     scheme: http
-    hostname: repository
-    port: 8080
+    hostname: @@REPO_HOST@@
+    port: @@REPO_PORT@@
     syncconfig:
         url: ${repo.scheme}://${repo.hostname}:${repo.port}/alfresco/service/devicesync/config
 
@@ -160,7 +160,7 @@ sync:
             schedulerInitialDelay: 0
             # every hour
             schedulerPeriod: 3600
-            schedulerExpression: 0 0  ?  *
+            schedulerExpression: 0 0 * ? * *
         numThreads: 5
         batchSize: 50
     # Syncer thread pool (for handling sync resolutions of client and repository changes)
