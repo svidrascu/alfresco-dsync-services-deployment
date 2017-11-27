@@ -18,4 +18,4 @@ RUN yum -y -q -e 0 install unzip && \
     chmod +x ${LOCAL_ROOT}/sync-start.sh
 
 WORKDIR "${LOCAL_ROOT}"
-ENTRYPOINT ["${LOCAL_ROOT}/sync-start.sh"]
+ENTRYPOINT ["./sync-start.sh"]
