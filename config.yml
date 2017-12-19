@@ -28,8 +28,8 @@ messaging:
                    uri: syncActivemq:${messaging.events.repo.node.endpoint.uriName}
                    bean: org.apache.activemq:type=Broker,brokerName=localhost,destinationType=${messaging.events.repo.node.endpoint.type},destinationName=${messaging.events.repo.node.endpoint.name}
     broker:
-        host: activemq
-        port: 61616
+        host: @@ACTIVEMQ_HOST@@
+        port: @@ACTIVEMQ_PORT@@
         url: failover:(tcp://${messaging.broker.host}:${messaging.broker.port}?wireFormat.maxInactivityDurationInitalDelay=30000)?timeout=3000&jms.useCompression=true&startupMaxReconnectAttempts=0&jms.redeliveryPolicy.maximumRedeliveries=${messaging.events.repo.node.maxConsumers}
     pool:
         maxConnections: 5

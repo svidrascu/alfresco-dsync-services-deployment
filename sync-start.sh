@@ -12,12 +12,22 @@ readonly ENABLE_JMX_REMOTE_AUTHENTICATION="${ENABLE_JMX_REMOTE_AUTHENTICATION:-t
 readonly DB_HOST="${DB_HOST:-localhost}"
 readonly REPO_HOST="${REPO_HOST:-localhost}"
 readonly REPO_PORT="${REPO_PORT:-8080}"
+readonly ACTIVEMQ_HOST="${ACTIVEMQ_HOST:-activemq}"
+readonly ACTIVEMQ_PORT="${ACTIVEMQ_PORT:-61616}"
+readonly REPO_HOST="${REPO_HOST:-localhost}"
+readonly REPO_PORT="${REPO_PORT:-8080}"
 readonly OVERRIDE_CONFIG="${OVERRIDE_CONFIG:-true}"
 readonly JMX_CONF="-Dcom.sun.management.jmxremote=$ENABLE_JMX_REMOTE"
 readonly JARS=$(find "$JAR_LOCATION" -name "*.jar" | paste -sd ":" -)
 
 if [ "${OVERRIDE_CONFIG}" == "true" ]; then
-    sed -i "s~@@DB_HOST@@~$DB_HOST~g;s~@@REPO_HOST@@~$REPO_HOST~g;s~@@REPO_PORT@@~$REPO_PORT~g" "$LOCAL_ROOT"/config.yml
+    sed_string="s~@@DB_HOST@@~$DB_HOST~g;"
+    sed_string+="s~@@REPO_HOST@@~$REPO_HOST~g;"
+    sed_string+="s~@@REPO_PORT@@~$REPO_PORT~g;"
+    sed_string+="s~@@ACTIVEMQ_HOST@@~$ACTIVEMQ_HOST~g;"
+    sed_string+="s~@@ACTIVEMQ_PORT@@~$ACTIVEMQ_PORT~g"
+
+    sed -i "${sed_string}" "$LOCAL_ROOT"/config.yml
     mv -f "$LOCAL_ROOT"/config.yml "$JAR_LOCATION"/config.yml
 fi
 
