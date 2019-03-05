@@ -12,7 +12,7 @@ syncservice:
     type: NodePort
     externalPort: 80
   ingress:
-    path: /syncservice
+    path: /syncservice/?(.*)
   resources:
     requests:
       memory: "1000Mi"
@@ -21,16 +21,28 @@ syncservice:
 
 activemq:
   broker:
-    host:
-    ports:
-      amqp: 5672
-      openwire: 61616
+      host: acs-activemq-broker
+      ports:
+        openwire: 61616
 
 repository:
-  host:
-  port:
+  host: acs-alfresco-cs-repository
+  port: 80
+  
+# Defines properties required by sync service for connecting to the database
+# Note! : If you set database.external to true you will have to setup the driver, user, password and JdbcUrl 
+# Also make sure that the container has the db driver in TODO - add container path
+database:
+  external: false
+  # driver:     #ex: org.postgresql.Driver
+  # user:     #ex: alfresco
+  # password:     #ex: alfresco
+  # url:    # ex: jdbc:postgresql://oldfashioned-mule-postgresql-acs:5432/alfresco
 
 postgresql:
+  ## If true, install the postgresql chart alongside Alfresco Sync service.
+  # Note: Set this to false if you use an external database. 
+  enabled: true
   nameOverride: postgresql-syncservice
   imageTag: "10.1"
   persistence:
