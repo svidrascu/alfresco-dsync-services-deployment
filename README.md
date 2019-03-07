@@ -80,3 +80,5 @@ helm install alfresco-sync-service --name syncservice
 ```
 curl http://192.168.99.101:31098/syncservice/healthcheck
 ```
+
+See the *Install ACS on Minikube* Step on how to obtain the *192.168.99.101:31098* (IP:PORT) combination.
