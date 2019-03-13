@@ -6,21 +6,21 @@ See this page for instructions to start the Minikube VM, install the Nginx ingre
 
 
 ##### Important notes:
-1. You may need to add the following nginx annotation in the *ingress-repository.yaml* and *ingress-share.yaml* if you get automatically redirected to https
+1) You may need to add the following nginx annotation in the *ingress-repository.yaml* and *ingress-share.yaml* if you get automatically redirected to https
   
 
 ```
 nginx.ingress.kubernetes.io/ssl-redirect: "false"
 ```
 
-2. By default Sync Service expects an ACS release named 'acs'. Install the ACS chart with *--name acs*
+2) By default Sync Service expects an ACS release named 'acs'. Install the ACS chart with *--name acs*
 
 
 ```
 helm install alfresco-content-services --set externalProtocol="http" --set externalHost="192.168.99.101" --set externalPort="31098" --name acs
 ```
 
-3. Make sure that the property *repository.image.repository* in values.yaml points to an ACS image with the Sync Service AMP installed. 
+3) Make sure that the property *repository.image.repository* in values.yaml points to an ACS image with the Sync Service AMP installed. 
 
    Instructions on how to build an ACS image with a custom AMP [HERE](https://github.com/Alfresco/acs-packaging/blob/master/docs/create-custom-image-using-existing-docker-image.md#applying-amps-that-dont-require-additional-configuration-easy)
   
@@ -30,7 +30,7 @@ helm install alfresco-content-services --set externalProtocol="http" --set exter
 eval $(minikube docker-env)
 ```
    
-4. Specify the *dsync.service.uris* property in values.yaml property *repository.environment.JAVA_OPTS*.
+4) Specify the *dsync.service.uris* property in values.yaml property *repository.environment.JAVA_OPTS*.
 
    The IP:PORT combination is the *externalhost:externalPort* specified in the *helm install* command above.
 e.g.
