@@ -1,0 +1,31 @@
+# Defines the properties required by the sync-service app
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "syncservice.shortname" . }}-sync-service-configmap
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    component: syncservice
+data:
+  JAVA_TOOL_OPTIONS: |-
+      {{- if eq .Values.database.external false }}
+      -Dsql.db.driver="org.postgresql.Driver"
+      -Dsql.db.url=jdbc:postgresql://{{ printf "%s-%s" .Release.Name .Values.postgresql.nameOverride }}:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.postgresDatabase }}
+      -Ddb.username={{ .Values.postgresql.postgresUser | b64enc }}
+      -Ddb.password={{ .Values.postgresql.postgresPassword | b64enc }}
+      {{- else }}
+      -Dsql.db.driver={{ .Values.database.driver}}
+      -Dsql.db.url={{ .Values.database.url}}
+      -Ddb.username={{ .Values.database.user  }}
+      -Ddb.password={{ .Values.database.password }}
+      {{- end }}
+      -Drepo.hostname={{ .Values.repository.host }}
+      -Drepo.port={{ .Values.repository.port }}
+      -Dmessaging.broker.host={{ .Values.activemq.broker.host }}
+      -Ddw.server.applicationConnectors[0].type=http
+  JAVA_OPTS: |-
+      {{- range $key, $value := .Values.extraEnv }}
+        -D{{ $key }}={{ $value | quote}}
+      {{- end }}
