@@ -3,10 +3,18 @@ registryPullSecrets: quay-registry-secret
 
 syncservice:
   image:
-    repository: quay.io/alfresco/service-sync
+    #repository: quay.io/alfresco/service-sync
+    repository: alfresco/service-sync
     tag: latest
-    pullPolicy: Always
+    pullPolicy: Never
     internalPort: 9090
+  environment:
+    JAVA_OPTS: >- 
+      -Dmetrics.reporter.graphite.enabled=false
+      -Dmetrics.reporter.graphite.address=127.0.0.1
+      -Dmetrics.reporter.graphite.port=2003
+      -Xms1000m -Xmx2000m
+
   service:
     name: syncservice
     type: NodePort
@@ -28,9 +36,9 @@ activemq:
 repository:
   host: acs-alfresco-cs-repository
   port: 80
-  
+
 # Defines properties required by sync service for connecting to the database
-# Note! : If you set database.external to true you will have to setup the driver, user, password and JdbcUrl 
+# Note! : If you set database.external to true you will have to setup the driver, user, password and JdbcUrl
 # Also make sure that the container has the db driver in TODO - add container path
 database:
   external: false
@@ -41,7 +49,7 @@ database:
 
 postgresql:
   ## If true, install the postgresql chart alongside Alfresco Sync service.
-  # Note: Set this to false if you use an external database. 
+  # Note: Set this to false if you use an external database.
   enabled: true
   nameOverride: postgresql-syncservice
   imageTag: "10.1"
