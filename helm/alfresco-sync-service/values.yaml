@@ -8,6 +8,13 @@ syncservice:
     tag: latest
     pullPolicy: Never
     internalPort: 9090
+  environment:
+    JAVA_OPTS: >- 
+      -Dmetrics.reporter.graphite.enabled=false
+      -Dmetrics.reporter.graphite.address=127.0.0.1
+      -Dmetrics.reporter.graphite.port=2003
+      -Xms1000m -Xmx2000m
+
   service:
     name: syncservice
     type: NodePort
@@ -52,12 +59,3 @@ postgresql:
   postgresUser: alfresco
   postgresPassword: admin
   postgresDatabase: syncservice-postgresql
-
-# Extra env vars to be passed as JAVA_OPTS variable
-extraEnv:
-  # sql.db.driver: org.postgresql.Driver
-  # metrics.reporter.graphite.enabled: false
-  # metrics.reporter.graphite.address: 127.0.0.1 # ip of graphite server
-  # metrics.reporter.graphite.pollingInterval: 60 # in seconds
-  # metrics.reporter.graphite.port: 2003
-  # metrics.reporter.graphite.prefix: org.alfresco.sync

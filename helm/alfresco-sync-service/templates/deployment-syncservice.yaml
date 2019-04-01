@@ -13,7 +13,9 @@ spec:
     metadata:
       labels:
         app: {{ template "syncservice.fullname" . }}
-        release: {{ .Release.Name }}
+        release: {{ .Release.Name }}      
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config-syncservice.yaml") . | sha256sum }}
     spec:
       imagePullSecrets:
         - name: {{ .Values.registryPullSecrets }}
@@ -35,8 +37,7 @@ spec:
         imagePullPolicy: {{ .Values.syncservice.image.pullPolicy }}
         envFrom:
         - configMapRef:
-            # config map to use, defined in config-syncservice.yaml
-            name: {{ template "syncservice.shortname" . }}-sync-service-configmap
+            name: {{ template "syncservice.fullname" . }}-configmap
         ports:
         - name: serviceport
           containerPort: 9090

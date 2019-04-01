@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "syncservice.shortname" . }}-sync-service-configmap
+  name: {{ template "syncservice.fullname" . }}-configmap
   labels:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     component: syncservice
 data:
-  JAVA_TOOL_OPTIONS: |-
+  JAVA_OPTS: >-
       {{- if eq .Values.database.external false }}
       -Dsql.db.driver="org.postgresql.Driver"
       -Dsql.db.url=jdbc:postgresql://{{ printf "%s-%s" .Release.Name .Values.postgresql.nameOverride }}:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.postgresDatabase }}
@@ -25,7 +25,4 @@ data:
       -Drepo.port={{ .Values.repository.port }}
       -Dmessaging.broker.host={{ .Values.activemq.broker.host }}
       -Ddw.server.applicationConnectors[0].type=http
-  JAVA_OPTS: |-
-      {{- range $key, $value := .Values.extraEnv }}
-        -D{{ $key }}={{ $value | quote}}
-      {{- end }}
+      {{ .Values.syncservice.environment.JAVA_OPTS }}
