@@ -32,6 +32,8 @@ activemq:
       host: acs-activemq-broker
       ports:
         openwire: 61616
+      username:
+      password:
 
 repository:
   host: acs-alfresco-cs-repository
