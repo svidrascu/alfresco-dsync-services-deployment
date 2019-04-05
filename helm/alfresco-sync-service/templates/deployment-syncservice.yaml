@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: {{ template "syncservice.fullname" . }}
-        release: {{ .Release.Name }}      
+        release: {{ .Release.Name }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config-syncservice.yaml") . | sha256sum }}
     spec:
@@ -49,3 +49,8 @@ spec:
             port: serviceport
           initialDelaySeconds: 10
           periodSeconds: 10
+        terminationGracePeriodSeconds: 60
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/opt/alfresco-sync-service/sync_service_entrypoint.sh", "stop"]
