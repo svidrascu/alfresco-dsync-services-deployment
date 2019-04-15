@@ -3,13 +3,13 @@ registryPullSecrets: quay-registry-secret
 
 syncservice:
   image:
-    #repository: quay.io/alfresco/service-sync
-    repository: alfresco/service-sync
+    repository: quay.io/alfresco/service-sync
+    #repository: alfresco/service-sync
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
     internalPort: 9090
   environment:
-    JAVA_OPTS: >- 
+    JAVA_OPTS: >-
       -Dmetrics.reporter.graphite.enabled=false
       -Dmetrics.reporter.graphite.address=127.0.0.1
       -Dmetrics.reporter.graphite.port=2003
@@ -26,6 +26,14 @@ syncservice:
       memory: "1000Mi"
     limits:
       memory: "2000Mi"
+
+  livenessProbe:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readinessProbe:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+    failureThreshold: 12
 
 activemq:
   broker:
