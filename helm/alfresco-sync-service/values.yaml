@@ -69,3 +69,5 @@ postgresql:
   postgresUser: alfresco
   postgresPassword: admin
   postgresDatabase: syncservice-postgresql
+  postgresConfig:
+    max_connections: 450
