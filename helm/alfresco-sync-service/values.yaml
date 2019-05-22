@@ -4,7 +4,6 @@ registryPullSecrets: quay-registry-secret
 syncservice:
   image:
     repository: quay.io/alfresco/service-sync
-    #repository: alfresco/service-sync
     tag: latest
     pullPolicy: Always
     internalPort: 9090
@@ -37,15 +36,18 @@ syncservice:
 
 activemq:
   broker:
-      host: acs-activemq-broker
+      host: activemq-broker
       ports:
         openwire: 61616
       username:
       password:
 
 repository:
-  host: acs-alfresco-cs-repository
+  host: alfresco-cs-repository
   port: 80
+
+contentServices:
+  installationName: acs
 
 # Defines properties required by sync service for connecting to the database
 # Note! : If you set database.external to true you will have to setup the driver, user, password and JdbcUrl
@@ -66,8 +68,13 @@ postgresql:
   persistence:
     existingClaim: "alfresco-volume-claim"
     subPath: "alfresco-sync-services/database-data"
+    #subPath: "ent-featureappsrepo470-9/alfresco-sync-services/database-data"
   postgresUser: alfresco
   postgresPassword: admin
   postgresDatabase: syncservice-postgresql
   postgresConfig:
     max_connections: 450
+
+# choose if you want network policy enabled
+networkpolicysetting:
+  enabled: true
