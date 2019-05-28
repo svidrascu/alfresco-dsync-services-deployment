@@ -19,9 +19,9 @@ data:
       {{- end }}
       -Ddb.username=$DATABASE_USERNAME
       -Ddb.password=$DATABASE_PASSWORD
-      -Drepo.hostname={{ .Values.repository.host }}
+      -Drepo.hostname={{ printf "%s-%s" .Values.contentServices.installationName .Values.repository.host }}
       -Drepo.port={{ .Values.repository.port }}
-      -Dmessaging.broker.host={{ .Values.activemq.broker.host }}
+      -Dmessaging.broker.host={{ printf "%s-%s" .Values.contentServices.installationName .Values.activemq.broker.host}}
       -Dmessaging.username={{ .Values.activemq.broker.username }}
       -Dmessaging.password={{ .Values.activemq.broker.password }}
       -Ddw.server.applicationConnectors[0].type=http
