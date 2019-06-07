@@ -35,7 +35,7 @@ spec:
     - from:
       - podSelector:
           matchLabels:
-            app: {{ template "syncservice.fullname" . }}
+            app: {{ include "syncservice.fullname" . }}
       ports:
         - protocol: TCP
           port: 5701
@@ -52,7 +52,7 @@ spec:
     - to:
       - podSelector:
           matchLabels:
-             app: {{ printf "%s-%s" .Values.contentServices.installationName .Values.repository.host }}
+             app: {{ printf "%s-%s" (include "acs.release.name" .) .Values.repository.host }}
       ports:
         - protocol: TCP
           port: 8080
@@ -63,7 +63,7 @@ spec:
     - to:
       - podSelector:
           matchLabels:
-             app: {{ printf "%s-%s" .Values.contentServices.installationName "activemq" }}
+             app: {{ printf "%s-%s" (include "acs.release.name" .) "activemq" }}
 
     # nginx-ingress
     - to:

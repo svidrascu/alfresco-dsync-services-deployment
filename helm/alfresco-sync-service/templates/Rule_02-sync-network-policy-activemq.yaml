@@ -7,7 +7,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: {{ printf "%s-%s" .Values.contentServices.installationName "activemq" }}
+      app: {{ printf "%s-%s" (include "acs.release.name" .) "activemq" }}
   policyTypes:
   - Ingress
   
