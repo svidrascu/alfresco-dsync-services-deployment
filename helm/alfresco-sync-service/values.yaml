@@ -27,12 +27,14 @@ syncservice:
       memory: "2000Mi"
 
   livenessProbe:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+    initialDelaySeconds: 150
+    periodSeconds: 10    
+    timeoutSeconds: 10
   readinessProbe:
     initialDelaySeconds: 20
     periodSeconds: 10
-    failureThreshold: 12
+    failureThreshold: 12    
+    timeoutSeconds: 10
 
 activemq:
   broker:
