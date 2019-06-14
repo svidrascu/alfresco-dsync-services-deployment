@@ -19,7 +19,7 @@ syncservice:
     type: NodePort
     externalPort: 80
   ingress:
-    path: /syncservice/?(.*)
+    path: /syncservice
   resources:
     requests:
       memory: "1000Mi"
