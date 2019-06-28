@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "e81b7d3e-1457-4327-aacd-7a0253233d95",
+		"name": "sync-test-collection",
+		"description": "A collection of tests which test the sync service installation.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "health check test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb477823-7ef5-4a2b-8573-0225c99cd355",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/healthcheck",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activeMQConnection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "463a4e0d-0353-4e4b-ad4f-d5fa6d187e8e",
+						"exec": [
+							"",
+							"pm.test(\"activeMQConnection\", function () {",
+							"    let jdata = JSON.parse(responseBody);",
+							"    ",
+							"    pm.expect(jdata.activeMQConnection.healthy).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/healthcheck",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "databaseConnection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adc611c3-2157-4d3b-ad39-1434ae897288",
+						"exec": [
+							"",
+							"pm.test(\"databaseConnection\", function () {",
+							"    let jdata = JSON.parse(responseBody);",
+							"    ",
+							"    pm.expect(jdata.databaseConnection.healthy).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/healthcheck",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "repositoryConnection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8c46743-4145-4936-88f4-183459be063b",
+						"exec": [
+							"",
+							"pm.test(\"repositoryConnection\", function () {",
+							"    let jdata = JSON.parse(responseBody);",
+							"    ",
+							"    pm.expect(jdata.repositoryConnection.healthy).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/healthcheck",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create subscriber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ae51b60-28c9-48d7-875e-2158cf132ff0",
+						"exec": [
+							"pm.test(\"canCreateASubscriber\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"subscriberId\", jsonData.entry.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"deviceOS\" : \"windows\",\n  \"clientVersion\" : \"1.1\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/private/alfresco/versions/1/subscribers",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a folder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9011e48d-86a8-4ce5-af17-7c29d3b506c2",
+						"exec": [
+							"pm.test(\"canCreateAFolderTest\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.environment.set(\"folderId\", pm.response.json().entry.id);",
+							"pm.environment.set(\"folderName\", pm.response.json().entry.name);",
+							"",
+							"//console.log(\"folderId:\"+pm.environment.get(\"folderId\"));",
+							"//console.log(\"folderName:\"+pm.environment.get(\"folderName\"));",
+							"//console.log(\"subscriberId:\"+pm.environment.get(\"subscriberId\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\":\"MyFolderForTestingSubscription\",\r\n  \"nodeType\":\"cm:folder\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/public/alfresco/versions/1/nodes/-my-/children?autoRename=true",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"public",
+						"alfresco",
+						"versions",
+						"1",
+						"nodes",
+						"-my-",
+						"children"
+					],
+					"query": [
+						{
+							"key": "autoRename",
+							"value": "true"
+						}
+					]
+				},
+				"description": "This request will create a folder for testing the syncservice subscription"
+			},
+			"response": []
+		},
+		{
+			"name": "create subscription",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ac8fa29-52d6-4724-814d-65a6b27c369f",
+						"exec": [
+							"pm.test(\"canCreateASubscription\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"subscriptionId\", jsonData.entry.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"targetNodeId\" : \"{{folderId}}\",\n  \"subscriptionType\" : \"BOTH\"\n}\n"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/private/alfresco/versions/1/subscribers/{{subscriberId}}/subscriptions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers",
+						"{{subscriberId}}",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start sync",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e617d667-1197-4c4a-b97a-ad65b6264385",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"syncId\", jsonData.syncId);\r",
+							"\r",
+							"// console.log(\"folderId:\"+pm.environment.get(\"folderId\"));\r",
+							"// console.log(\"folderName:\"+pm.environment.get(\"folderName\"));\r",
+							"// console.log(\"subscriberId:\"+pm.environment.get(\"subscriberId\"));\r",
+							"// console.log(\"subscriptionId:\"+pm.environment.get(\"subscriptionId\"));\r",
+							"// console.log(\"jsonData:\"+jsonData);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"changes\":[],\"clientVersion\":\"1.1\"}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/api/-default-/private/alfresco/versions/1/subscribers/{{subscriberId}}/subscriptions/{{subscriptionId}}/sync",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers",
+						"{{subscriberId}}",
+						"subscriptions",
+						"{{subscriptionId}}",
+						"sync"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get sync",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/api/-default-/private/alfresco/versions/1/subscribers/{{subscriberId}}/subscriptions/{{subscriptionId}}/sync/{{syncId}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers",
+						"{{subscriberId}}",
+						"subscriptions",
+						"{{subscriptionId}}",
+						"sync",
+						"{{syncId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "end sync",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f10e2f1b-88d9-490d-b11a-439a5bdfcbda",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/api/-default-/private/alfresco/versions/1/subscribers/{{subscriberId}}/subscriptions/{{subscriptionId}}/sync/{{syncId}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers",
+						"{{subscriberId}}",
+						"subscriptions",
+						"{{subscriptionId}}",
+						"sync",
+						"{{syncId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get sync again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5b18476-9246-45af-9b83-ebaca6821c02",
+						"exec": [
+							"pm.test(\"GetSyncAgain\", function () {",
+							"    let jdata = JSON.parse(responseBody);",
+							"    ",
+							"    pm.expect(jdata.message).to.include(\"invalid syncId\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "test2",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/syncservice/api/-default-/private/alfresco/versions/1/subscribers/{{subscriberId}}/subscriptions/{{subscriptionId}}/sync/{{syncId}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"syncservice",
+						"api",
+						"-default-",
+						"private",
+						"alfresco",
+						"versions",
+						"1",
+						"subscribers",
+						"{{subscriberId}}",
+						"subscriptions",
+						"{{subscriptionId}}",
+						"sync",
+						"{{syncId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "813d9959-ef1e-4f6c-b8c6-4755bdf5686f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f67b9cc7-66c5-4519-824a-a42c5a1f1485",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
