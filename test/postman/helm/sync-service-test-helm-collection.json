@@ -264,10 +264,7 @@
 							"",
 							"pm.environment.set(\"folderId\", pm.response.json().entry.id);",
 							"pm.environment.set(\"folderName\", pm.response.json().entry.name);",
-							"",
-							"//console.log(\"folderId:\"+pm.environment.get(\"folderId\"));",
-							"//console.log(\"folderName:\"+pm.environment.get(\"folderName\"));",
-							"//console.log(\"subscriberId:\"+pm.environment.get(\"subscriberId\"));"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -299,7 +296,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"name\":\"MyFolderForTestingSubscription\",\r\n  \"nodeType\":\"cm:folder\"\r\n}"
@@ -412,6 +415,258 @@
 			"response": []
 		},
 		{
+			"name": "create content in folder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "deddc0d6-1e30-46fb-be62-c2a4426f8bde",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"check number created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.count).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"folderPath\":\"{{folderName}}\",\r\n  \"fileCount\":\"1\",\r\n  \"forceBinaryStorage\":\"true\",\r\n  \"minFileSize\":\"22\",\r\n  \"maxFileSize\":\"42\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/s/api/model/filefolder/load",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"s",
+						"api",
+						"model",
+						"filefolder",
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list content in folder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fab222a-0b9e-481b-a0b6-6610f4686083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"check number created\", function () {",
+							"    pm.expect(jsonData.list.pagination.count).to.eql(1);",
+							"});",
+							"",
+							"var entry = jsonData.list.entries[0].entry;",
+							"pm.environment.set(\"contentId\", entry.id);",
+							"pm.environment.set(\"contentName\", entry.name);",
+							"pm.environment.set(\"contentLength\", entry.content.sizeInBytes);",
+							"",
+							"console.log(\"contentId:\"+pm.environment.get(\"contentId\"));",
+							"console.log(\"contentName:\"+pm.environment.get(\"contentName\"));",
+							"console.log(\"contentLength:\"+pm.environment.get(\"contentLength\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/public/alfresco/versions/1/nodes/{{folderId}}/children",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"public",
+						"alfresco",
+						"versions",
+						"1",
+						"nodes",
+						"{{folderId}}",
+						"children"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c288f73-709e-4911-b747-2248233c58a6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Test the content"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/public/alfresco/versions/1/nodes/{{contentId}}/content",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"public",
+						"alfresco",
+						"versions",
+						"1",
+						"nodes",
+						"{{contentId}}",
+						"content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d69c78e3-28d5-4679-8da9-37be961ede6b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content is correct\", function () {",
+							"    pm.response.to.have.body(\"Test the content\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/alfresco/api/-default-/public/alfresco/versions/1/nodes/{{contentId}}/content",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"alfresco",
+						"api",
+						"-default-",
+						"public",
+						"alfresco",
+						"versions",
+						"1",
+						"nodes",
+						"{{contentId}}",
+						"content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "start sync",
 			"event": [
 				{
@@ -421,12 +676,6 @@
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
 							"pm.environment.set(\"syncId\", jsonData.syncId);\r",
-							"\r",
-							"// console.log(\"folderId:\"+pm.environment.get(\"folderId\"));\r",
-							"// console.log(\"folderName:\"+pm.environment.get(\"folderName\"));\r",
-							"// console.log(\"subscriberId:\"+pm.environment.get(\"subscriberId\"));\r",
-							"// console.log(\"subscriptionId:\"+pm.environment.get(\"subscriptionId\"));\r",
-							"// console.log(\"jsonData:\"+jsonData);\r",
 							"\r",
 							""
 						],
@@ -497,6 +746,30 @@
 		},
 		{
 			"name": "get sync",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fac670eb-b170-4b16-8745-23296d9e7abb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"check create repos\", function () {",
+							"    pm.expect(jsonData.changes[0].type).to.eql(\"CREATE_REPOS\");",
+							"});",
+							"",
+							"pm.test(\"check nodeType\", function () {",
+							"    pm.expect(jsonData.changes[0].nodeType).to.eql(\"cm:content\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "basic",

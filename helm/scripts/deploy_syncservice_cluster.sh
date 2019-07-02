@@ -6,7 +6,7 @@ declare library_path
 
 library_path="acs-k8s-cluster/scripts"
 source "${library_path}/common.func.sh"
-EDITION="$1"
+EDITION="enterprise"
 
 printVarSummary
 
@@ -33,9 +33,10 @@ log_info "Writing the namespace $namespace to namespace.properties"
 
 # Get the sync service release name
 release_name_sync_service=$(get_new_release_name_sync)
-echo "release_name_sync_service=$release_name_sync_service" >> deployment/release_sync_service.properties
-log_info "Writing the sync service release name $release_name_sync_service to release_sync_service.properties"
 
+base_url=$namespace.dev.alfresco.me
+echo "url=$base_url" >> deployment/url.properties
+log_info "base url: $base_url"
 
 helm install ${bamboo_build_working_directory}/deployment/helm/alfresco-sync-service \
   --name $release_name_sync_service \

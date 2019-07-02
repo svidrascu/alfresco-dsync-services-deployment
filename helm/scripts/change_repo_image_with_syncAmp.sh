@@ -9,12 +9,12 @@ library_path="acs-k8s-cluster/scripts"
 
 source "${library_path}/common.func.sh"
 
-EDITION="$1"
+EDITION="enterprise"
 
 namespace=$(get_namespace)
 
 log_info "Change ACS installed image"
 
 kubectl set image deployment "${bamboo_inject_release_name_acs}-alfresco-cs-repository" \
-  alfresco-content-services=586394462691.dkr.ecr.eu-west-1.amazonaws.com/alfresco-sync-service-experiment:latest \
+  alfresco-content-services=quay.io/alfresco/alfresco-content-repository:feature-APPSREPO-656_include_sync-6.2.0-SNAPSHOT \
   --namespace=$namespace

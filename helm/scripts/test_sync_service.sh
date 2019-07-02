@@ -2,7 +2,7 @@
 
 # basic test to verify if sync service was installed successfuly
 
-namespace=${bamboo_namespace}
+namespace=${bamboo_inject_namespace}
 
 sync_service_pods() {
         kubectl get pods --namespace "$namespace" | grep "sync" | wc -l | sed 's/ *//'
