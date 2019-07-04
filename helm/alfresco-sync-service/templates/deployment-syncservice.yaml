@@ -36,6 +36,8 @@ spec:
         image: "{{ .Values.syncservice.image.repository }}:{{ .Values.syncservice.image.tag }}"
         imagePullPolicy: {{ .Values.syncservice.image.pullPolicy }}
         envFrom:
+        - secretRef: 
+            name: {{ template "syncservice.fullname" . }}-dbsecret
         - configMapRef:
             name: {{ template "syncservice.fullname" . }}-configmap
         ports:
