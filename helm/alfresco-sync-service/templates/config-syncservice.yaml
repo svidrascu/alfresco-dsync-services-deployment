@@ -17,8 +17,8 @@ data:
       -Dsql.db.driver={{ .Values.database.driver}}
       -Dsql.db.url={{ .Values.database.url}}
       {{- end }}
-      -Ddb.username=$DATABASE_USERNAME
-      -Ddb.password=$DATABASE_PASSWORD
+      -Dsql.db.username=$DATABASE_USERNAME
+      -Dsql.db.password=$DATABASE_PASSWORD
       -Drepo.hostname={{ printf "%s-%s" (include "acs.release.name" .) .Values.repository.host }}
       -Drepo.port={{ .Values.repository.port }}
       -Dmessaging.broker.host={{ printf "%s-%s" (include "acs.release.name" .) .Values.activemq.broker.host}}
