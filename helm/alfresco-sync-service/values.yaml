@@ -12,7 +12,7 @@ syncservice:
       -Dmetrics.reporter.graphite.enabled=false
       -Dmetrics.reporter.graphite.address=127.0.0.1
       -Dmetrics.reporter.graphite.port=2003
-      -Xms1000m -Xmx2000m
+      -Xms1000M -Xmx2000M
 
   service:
     name: syncservice
@@ -22,19 +22,34 @@ syncservice:
     path: /syncservice
   resources:
     requests:
-      memory: "1000Mi"
+      memory: "2000Mi"
+      cpu: 2
     limits:
       memory: "2000Mi"
+      cpu: 2
 
   livenessProbe:
     initialDelaySeconds: 150
-    periodSeconds: 10    
+    periodSeconds: 30    
     timeoutSeconds: 10
   readinessProbe:
     initialDelaySeconds: 20
     periodSeconds: 10
     failureThreshold: 12    
     timeoutSeconds: 10
+    
+  horizontalPodAutoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+    CPU:
+      enabled: true
+      targetAverageUtilization: 80
+    memory:
+      enabled: true
+
+# For the memory a lower threshold(60) for the targetAverageUtilization is needed. We need to allow the resource metrics to be queried by the metrics-server, before the pod is killed # by Kubernetes due to reaching memory limits(the infamous message one might see  in the pod events history. "Terminated: OOMKilled"). The metrics are checked every 15 seconds by #    # default,  configured by the global cluster flag --horizontal-pod-autoscaler-sync-period 
+      targetAverageUtilization: 60
 
 activemq:
   broker:
