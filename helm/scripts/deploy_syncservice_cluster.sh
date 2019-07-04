@@ -42,7 +42,7 @@ helm install ${bamboo_build_working_directory}/deployment/helm/alfresco-sync-ser
   --name $release_name_sync_service \
   --namespace=$namespace \
   --set contentServices.installationName=${bamboo_inject_release_name_acs} \
-  --set persistence.subPath="$namespace/alfresco-sync-services/database-data"
+  --set postgresql.persistence.subPath="$namespace/alfresco-sync-services/database-data"
 
 log_info "Installed sync service pods"
 kubectl --namespace=$namespace get pods | grep "$release_name_sync_service-"
