@@ -4,7 +4,7 @@ registryPullSecrets: quay-registry-secret
 syncservice:
   image:
     repository: quay.io/alfresco/service-sync
-    tag: 3.1.2-RC1
+    tag: latest
     pullPolicy: Always
     internalPort: 9090
   environment:
