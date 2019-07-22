@@ -20,17 +20,21 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.registryPullSecrets }}
       initContainers:
+      {{- if eq .Values.activemq.external false }}
       - name: init-activemq
         image: busybox
         env:
         - name: ACTIVEMQ_HOST
           value: {{ printf "%s-%s" (include "acs.release.name" .) .Values.activemq.broker.host}}
         - name: ACTIVEMQ_PORT
-          value: {{ .Values.activemq.broker.ports.openwire | default 61616 | quote }}
+          value: {{ .Values.activemq.broker.ports | default 61616 | quote }}
         command: ['sh', '-c', 'until nc -w1 $ACTIVEMQ_HOST $ACTIVEMQ_PORT; do echo "waiting for activemq"; sleep 5; done;']
+      {{- end }}
+      {{- if eq .Values.database.external false }}
       - name: init-postgres
         image: busybox
         command: ['sh', '-c', 'until nc -w1 {{ .Release.Name }}-postgresql-syncservice 5432; do echo "waiting for postgresql"; sleep 2; done;']
+      {{- end }}
       containers:
       - name: syncservice
         image: "{{ .Values.syncservice.image.repository }}:{{ .Values.syncservice.image.tag }}"
