@@ -13,6 +13,7 @@ syncservice:
       -Dmetrics.reporter.graphite.address=127.0.0.1
       -Dmetrics.reporter.graphite.port=2003
       -Xms1000M -Xmx2000M
+    EXTRA_JAVA_OPTS: >-
 
   service:
     name: syncservice
@@ -52,12 +53,13 @@ syncservice:
       targetAverageUtilization: 60
 
 activemq:
+  external: false
   broker:
       host: activemq-broker
-      ports:
-        openwire: 61616
+      port: 61616
       username:
       password:
+      protocol: tcp
 
 repository:
   host: alfresco-cs-repository
@@ -65,6 +67,7 @@ repository:
 
 contentServices:
 # Specify when installing as a standalone chart, not as a subchart of ACS.
+# This variable will be used to construct the correct hostname for ACS and ActiveMQ
   installationName:
 
 # Defines properties required by sync service for connecting to the database
@@ -96,3 +99,8 @@ postgresql:
 # choose if you want network policy enabled
 networkpolicysetting:
   enabled: true
+
+ingress:
+  extraAnnotations:
+    #useful when running Sync service without SSL termination done by a load balancer, e.g. when ran on Minikube for testing purposes
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
