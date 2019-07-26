@@ -1,4 +1,5 @@
 {{- if .Values.networkpolicysetting.enabled }}
+{{- if eq .Values.activemq.external false }}
 # Allow activemq to communicate with syncservice
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -17,4 +18,6 @@ spec:
       - podSelector:
           matchLabels:
             app: {{ template "syncservice.fullname" . }}
+            
+{{- end }}
 {{- end }}
