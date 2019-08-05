@@ -16,5 +16,5 @@ namespace=$(get_namespace)
 log_info "Change ACS installed image"
 
 kubectl set image deployment "${bamboo_inject_release_name_acs}-alfresco-cs-repository" \
-  alfresco-content-services=quay.io/alfresco/alfresco-content-repository:feature-6.1.N-APPSREPO-656_include_sync-6.1.1-SNAPSHOT \
+  alfresco-content-services=quay.io/alfresco/alfresco-content-repository:feature-APPSREPO-656_include_sync-6.2.0-SNAPSHOT \
   --namespace=$namespace
