@@ -10,7 +10,7 @@ sync_service_pods() {
 
 count_pods=$(sync_service_pods)
 
-if [ $count_pods == 2 ]
+if [ $count_pods == 3 ]
 then
         echo "sync service it's installed!"
 else
