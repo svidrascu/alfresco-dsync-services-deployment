@@ -2,4 +2,4 @@ dependencies:
   - name: postgresql
     version: 0.9.3
     repository: https://kubernetes-charts.storage.googleapis.com
-    condition: postgresql.enabled
+    condition: alfresco-sync-service.postgresql.enabled
