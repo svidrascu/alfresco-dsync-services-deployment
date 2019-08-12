@@ -43,7 +43,7 @@ helm install ${bamboo_build_working_directory}/deployment/helm/alfresco-sync-ser
   --namespace=$namespace \
   --set contentServices.installationName=${bamboo_inject_release_name_acs} \
   --set postgresql.persistence.subPath="$namespace/alfresco-sync-services/database-data" \
-  --set replicaCount=2
+  --set replicaCount=2 \
   --set syncservice.horizontalPodAutoscaling.enabled=false
 
 log_info "Installed sync service pods"
