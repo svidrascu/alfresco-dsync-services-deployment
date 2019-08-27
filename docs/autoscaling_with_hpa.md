@@ -39,6 +39,12 @@ In order for HPA to work the resource **requests** must be specified upfront . T
 Before using HPA one needs to configure the Kubernetes cluster to:
 * Create new physical nodes when there are unscheduled pods. 
 * Enable collecting resource usage metrics from all the pods via a metrics-server.
+If using Minikube the metrics-server can be enabled with the following command:
+```
+minikube addons enable metrics-server
+minikube addons open heapster
+
+```
 All the prerequisites above are documented nicely [https://caylent.com/kubernetes-autoscaling/](https://caylent.com/kubernetes-autoscaling/).
 
 **Beware!**. If using KOPS, the metrics-server doesn't work out of the box. Some additional flags need to specified. More details here: https://github.com/kubernetes-incubator/metrics-server/issues/212
