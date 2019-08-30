@@ -4,14 +4,14 @@ registryPullSecrets: quay-registry-secret
 syncservice:
   image:
     repository: quay.io/alfresco/service-sync
-    tag: 3.1.2-RC3
+    tag: 3.1.2-RC4
     pullPolicy: Always
     internalPort: 9090
   environment:
     JAVA_OPTS: >-
-      -Dmetrics.reporter.graphite.enabled=false
-      -Dmetrics.reporter.graphite.address=127.0.0.1
-      -Dmetrics.reporter.graphite.port=2003
+      -Dsync.metrics.reporter.graphite.enabled=false
+      -Dsync.metrics.reporter.graphite.address=127.0.0.1
+      -Dsync.metrics.reporter.graphite.port=2003
       -Xms1000M -Xmx2000M
     EXTRA_JAVA_OPTS: >-
 
