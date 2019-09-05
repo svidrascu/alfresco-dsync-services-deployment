@@ -28,7 +28,7 @@ project
 ```bash
 helm install alfresco-incubator/alfresco-sync-service --set syncservice.image.tag="yourTag"
 ```
-    [values.yaml - Configuration explaned](../README.md#configuration)
+[values.yaml - Configuration explaned](../README.md#configuration)
     
 
 * You can run ```eval $(minikube docker-env)``` to switch to your Minikube Docker environment on Mac OS X.
