@@ -29,8 +29,8 @@ Parameter | Description | Default
 `syncservice.image.internalPort`|internal port for communication with sync service|`9090`
 `syncservice.environment.EXTRA_JAVA_OPTS`|allows to be added properties dynamically. This variable is used in the config map objects|``
 `syncservice.service`|defines the name, type, external port for sync service|
-`livenessProbe` and `readinessProbe`| defines when sync service pod is started, for the first time and when sync service pod is restarted|<pre>`livenessProbe:`<br/> `initialDelaySeconds: 150`<br/> `periodSeconds: 30`<br/> `timeoutSeconds: 10`<br/>`readinessProbe:`<br/> `initialDelaySeconds: 20`<br/> `periodSeconds: 10`<br/> `failureThreshold: 12`<br/> `timeoutSeconds: 10`</pre>
-`syncservice.horizontalPodAutoscaling`|[explaned here](./docs/autoscaling_with_hpa.md)|<pre>`horizontalPodAutoscaling:`<br/> `enabled: true`<br/> `minReplicas: 1`<br/> `maxReplicas: 3`<br/> `CPU:`<br/>  `enabled: true`<br/>  `targetAverageUtilization: 80`<br/> `memory:`<br/>  `enabled: true`<pre/>
+`livenessProbe` and `readinessProbe`| defines when sync service pod is started, for the first time and when sync service pod is restarted|livenessProbe:<br/>&nbsp;initialDelaySeconds: 150<br/>&nbsp;periodSeconds: 30<br/>&nbsp;timeoutSeconds: 10<br/>readinessProbe:<br/> &nbsp;initialDelaySeconds: 20<br/>&nbsp;periodSeconds: 10<br/>&nbsp;failureThreshold: 12<br/>&nbsp;timeoutSeconds: 10
+`syncservice.horizontalPodAutoscaling`|[explaned here](./docs/autoscaling_with_hpa.md)|horizontalPodAutoscaling:<br/>&nbsp;enabled: true<br/>&nbsp;minReplicas: 1<br/>&nbsp;maxReplicas: 3<br/>&nbsp;CPU:<br/>&nbsp;&nbsp;enabled: true<br/>&nbsp;&nbsp;targetAverageUtilization: 80<br/>&nbsp;memory:<br/>&nbsp;&nbsp;enabled: true
 `activemq.external`|Enable the use of an externally provisioned database|`false`
 `repository.host`|repository host|`alfresco-cs-repository`
 `postgresql.enabled`|If true, install the postgresql chart alongside Alfresco Sync service|`true`
