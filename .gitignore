@@ -18,3 +18,7 @@
 target
 
 *.tar.gz
+
+helm/alfresco-sync-service/charts
+helm/alfresco-sync-service/requirements.lock
+helm/alfresco-sync-service*.tgz
