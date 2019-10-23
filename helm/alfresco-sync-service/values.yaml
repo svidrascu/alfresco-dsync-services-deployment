@@ -2,7 +2,7 @@ replicaCount: 1
 
 # Global definition of Docker registry pull secret which can be overridden from parent ACS Helm chart(s)
 global:
-  alfrescoRegistryPullSecret: quay-registry-secret
+  alfrescoRegistryPullSecrets: quay-registry-secret
 
 syncservice:
   image:
