@@ -23,7 +23,7 @@ project
 ```
 
 **Note:**
-* Use the recommended image tags, as not all combinations may work.
+* Use the recommended image tags, as not all combinations work together.
 * You can modify the values provided in [values.yaml](../helm/alfresco-sync-service/values.yaml) when deploying the Helm chart. For example, you can run:
 ```bash
 helm install alfresco-incubator/alfresco-sync-service --set syncservice.image.tag="yourTag"
