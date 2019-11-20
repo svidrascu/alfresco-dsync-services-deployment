@@ -20,7 +20,8 @@ nginx.ingress.kubernetes.io/ssl-redirect: "false"
 helm install alfresco-content-services --set externalProtocol="http" --set externalHost="192.168.99.101" --set externalPort="31098" --name acs
 ```
 
-3) Make sure that the property *repository.image.repository* in values.yaml points to an ACS image with the Sync Service AMP installed.
+3) Make sure that the property *repository.image.repository* in values.yaml points to an ACS image with the Sync Service AMP installed. Starting from ACS 6.1.1 the ASC image contains Sync Service AMP. 
+   For other versions, below 6.1.1 you can follow this instructions:
 
    Instructions on how to build an ACS image with a custom AMP [HERE](https://github.com/Alfresco/acs-packaging/blob/master/docs/create-custom-image-using-existing-docker-image.md#applying-amps-that-dont-require-additional-configuration-easy)
 
