@@ -1,23 +1,23 @@
 # Alfresco Sync Service deployment using Kubernetes and Helm.
 
-This is a template project for deploying the Alfresco Sync Service in a container with Kubernetes.
+This is a reference project for deploying the Alfresco Sync Service in a container with Kubernetes.
 
 Note; [Alfresco Content Services deployment project](https://github.com/Alfresco/acs-deployment) automatically includes the Alfresco Sync Service Helm Chart from this project.
 
-Alfresco recommends this template is used as an accelerator by customers who have prior production experience with containerized deployment technologies like Docker, Kubernetes and Helm. 
+Alfresco recommends this reference is used as an accelerator by customers who have prior production experience with containerized deployment technologies like Docker, Kubernetes and Helm. 
 
 A non-container based installation ZIP is available through the [Customer Support Portal](https://support.alfresco.com).
 
 ### What is Alfresco Sync Service?
 Alfresco Sync Service is an add-on module that synchronizes files between the desktop and repository using web services. It's part of the Desktop Sync solution that consists of three components: Sync Service, Desktop Sync for Windows, and Desktop Sync for Mac.
 
-### What are the deployment options for Sync Service?
+### What are the deployment references are available for the Sync Service?
 
 * [Traditional, non-container, installation](https://docs.alfresco.com/syncservice/tasks/desktop-sync-install.html)
 * [Deploy in Minikube](./docs/deployment_minikube.md)
 * [Deploy in AWS EKS with Alfresco Content Services](https://github.com/Alfresco/acs-deployment/blob/master/docs/helm-deployment-aws_eks.md)
 
-### How can I tailor this template to suit my needs?
+### How can I tailor this reference to suit my needs?
 * [Customising your deployment](./docs/customising-deployment.md)
 * [Autoscaling using HPA(Horizontal Pod Autoscaling)](./docs/autoscaling_with_hpa.md)
 
