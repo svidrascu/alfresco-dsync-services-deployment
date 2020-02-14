@@ -1,5 +1,5 @@
 name: alfresco-sync-service
-version: 3.0.0
+version: 3.0.1 - SNAPSHOT
 appVersion: 3.3.0
 description: Alfresco Syncservice
 keywords:
