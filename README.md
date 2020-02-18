@@ -4,7 +4,7 @@ This is a reference project for deploying the Alfresco Sync Service in a contain
 
 Note; [Alfresco Content Services deployment project](https://github.com/Alfresco/acs-deployment) automatically includes the Alfresco Sync Service Helm Chart from this project.
 
-Alfresco recommends this reference is used as an accelerator by customers who have prior production experience with containerized deployment technologies like Docker, Kubernetes and Helm. 
+Alfresco recommends this reference is used as an accelerator by customers who have prior production experience with containerized deployment technologies like Docker, Kubernetes and Helm.
 
 A non-container based installation ZIP is available through the [Customer Support Portal](https://support.alfresco.com).
 
@@ -67,3 +67,4 @@ As an addition to Semantic Versioning the following list describes Sync Service 
 |1.0.0-RC3|3.1.2-RC4|
 |1.0.0|3.1.2|
 |2.0.0|3.2.0|
+|3.0.1|3.3.1|
