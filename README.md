@@ -57,3 +57,4 @@ As an addition to Semantic Versioning the following list describes Sync Service 
 |1.0.0-RC3|3.1.2-RC4|
 |1.0.0|3.1.2|
 |2.0.0|3.2.0|
+|2.0.1|3.2.0|
