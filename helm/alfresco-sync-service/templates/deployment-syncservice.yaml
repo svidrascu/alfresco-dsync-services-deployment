@@ -40,6 +40,7 @@ spec:
         image: busybox
         command: ['sh', '-c', 'until nc -w1 {{ .Release.Name }}-postgresql-syncservice 5432; do echo "waiting for postgresql"; sleep 2; done;']
       {{- end }}
+      terminationGracePeriodSeconds: 60
       containers:
       - name: syncservice
         image: "{{ .Values.syncservice.image.repository }}:{{ .Values.syncservice.image.tag }}"
@@ -67,7 +68,6 @@ spec:
             port: serviceport
           initialDelaySeconds: {{ .Values.syncservice.livenessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.syncservice.livenessProbe.periodSeconds }}
-        terminationGracePeriodSeconds: 60
         lifecycle:
           preStop:
             exec:
