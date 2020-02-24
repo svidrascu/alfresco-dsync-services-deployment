@@ -68,3 +68,4 @@ As an addition to Semantic Versioning the following list describes Sync Service 
 |1.0.0|3.1.2|
 |2.0.0|3.2.0|
 |3.0.1|3.3.1|
+|3.0.2|3.3.1|
